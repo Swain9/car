@@ -1,6 +1,7 @@
 package cn.yuntangnet.duizhang.exception;
 
 import cn.yuntangnet.duizhang.common.util.ResultBean;
+import org.apache.shiro.ShiroException;
 import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,10 +37,14 @@ public class GlobalExceptionHandle {
         return ResultBean.error("数据库中已存在该记录");
     }
 
-    @ExceptionHandler(AuthorizationException.class)
-    public ResultBean handleAuthorizationException(AuthorizationException e) {
+    @ExceptionHandler(ShiroException.class)
+    public ResultBean handleAuthorizationException(ShiroException e) {
         logger.error(e.getMessage(), e);
-        return ResultBean.error("没有权限，请联系管理员授权");
+        if (e instanceof AuthorizationException) {
+            return ResultBean.error("没有权限，请联系管理员授权");
+        } else {
+            return ResultBean.error(e.getMessage());
+        }
     }
 
     @ExceptionHandler(Exception.class)

@@ -18,7 +18,7 @@ var url = function(name) {
 T.p = url;
 
 //请求前缀
-var baseURL = "/renren-fast/";
+var baseURL = "/";
 
 //登录token
 var token = localStorage.getItem("token");
@@ -38,7 +38,7 @@ $.ajaxSetup({
     },
     complete: function(xhr) {
         //token过期，则跳转到登录页面
-        if(xhr.responseJSON.code == 401){
+        if(xhr.responseJSON.status == 401){
             parent.location.href = baseURL + 'login.html';
         }
     }
