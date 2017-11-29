@@ -55,6 +55,12 @@ public class SystemLoginController extends AbstractController {
         return ResultBean.ok();
     }
 
+    @PostMapping("/system/logout")
+    public ResultBean logout() {
+        ShiroUtils.logout();
+        return ResultBean.ok();
+    }
+
     /**
      * 验证码
      */

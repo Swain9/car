@@ -1,10 +1,12 @@
 package cn.yuntangnet.duizhang.modules.system.controller;
 
 
+import cn.yuntangnet.duizhang.common.util.ResultBean;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -15,8 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2017-11-22
  */
 @RestController
-@RequestMapping("/system/systemUser")
-public class SystemUserController {
+@RequestMapping("/system/user")
+public class SystemUserController extends AbstractController {
 
+    /**
+     * 获取登录的用户信息
+     *
+     * @return
+     */
+    @RequestMapping("/info")
+    public ResultBean info() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("user", getUser());
+        return ResultBean.ok(map);
+    }
 }
 

@@ -6,6 +6,7 @@ import cn.yuntangnet.duizhang.modules.system.entity.SystemMenu;
 import cn.yuntangnet.duizhang.modules.system.service.ISystemMenuService;
 import cn.yuntangnet.duizhang.modules.system.service.ShiroService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,7 @@ import java.util.Set;
  * @since 2017-11-22
  */
 @RestController
-@RequestMapping("/system/systemMenu")
+@RequestMapping("/system/menu")
 public class SystemMenuController extends AbstractController {
 
 
@@ -41,7 +42,7 @@ public class SystemMenuController extends AbstractController {
      *
      * @return
      */
-    @RequestMapping("/nav")
+    @PostMapping("/nav")
     public ResultBean nav() {
         List<SystemMenu> menuList = systemMenuService.getUserMenuList(getUserId());
         Set<String> permissions = shiroService.getUserPermissions(getUserId());

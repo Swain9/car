@@ -91,4 +91,11 @@ public class ShiroUtils {
     public static void login(UsernamePasswordToken token) {
         getSubject().login(token);
     }
+
+    /**
+     * 用户登出
+     */
+    public static void logout() {
+        getSubject().logout();
+    }
 }

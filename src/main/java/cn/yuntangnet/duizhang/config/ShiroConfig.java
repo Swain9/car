@@ -1,5 +1,6 @@
 package cn.yuntangnet.duizhang.config;
 
+import cn.yuntangnet.duizhang.modules.system.shiro.AuthFilter;
 import cn.yuntangnet.duizhang.modules.system.shiro.AuthRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -12,6 +13,8 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -48,11 +51,11 @@ public class ShiroConfig {
         shiroFilter.setSecurityManager(securityManager);
 
         //oauth过滤
-        //Map<String, Filter> filters = new HashMap<>();
-        //filters.put("oauth2", new OAuth2Filter());
-        //shiroFilter.setFilters(filters);
-        shiroFilter.setLoginUrl("/login.html");
-        shiroFilter.setSuccessUrl("/index.html");
+        Map<String, Filter> filters = new HashMap<>();
+        filters.put("myauth", new AuthFilter());
+        shiroFilter.setFilters(filters);
+        //shiroFilter.setLoginUrl("/login.html");
+        //shiroFilter.setSuccessUrl("/index.html");
 
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/webjars/**", "anon");
@@ -67,7 +70,7 @@ public class ShiroConfig {
         filterMap.put("/swagger/**", "anon");
         filterMap.put("/favicon.ico", "anon");
         filterMap.put("/captcha.jpg", "anon");
-        filterMap.put("/**", "authc");
+        filterMap.put("/**", "myauth");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
 
         return shiroFilter;
