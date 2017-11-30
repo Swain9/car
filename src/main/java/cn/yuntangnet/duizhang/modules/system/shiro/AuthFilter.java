@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -22,10 +23,20 @@ public class AuthFilter extends AuthenticatingFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
-        ResultBean error = ResultBean.error(HttpStatus.UNAUTHORIZED.value(), "请登陆");
-        HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
-        httpResponse.setContentType("application/json;charset=UTF-8");
-        httpResponse.getWriter().write(JsonUtils.objectToJson(error));
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+
+        String header = request.getHeader("X-Requested-With");
+
+        if ("XMLHttpRequest".equalsIgnoreCase(header)) {
+            ResultBean error = ResultBean.error(HttpStatus.UNAUTHORIZED.value(), "请登陆");
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write(JsonUtils.objectToJson(error));
+        } else {
+            this.setLoginUrl("/login.html");
+            this.saveRequestAndRedirectToLogin(servletRequest, servletResponse);
+        }
+
         return false;
     }
 }

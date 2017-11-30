@@ -1,6 +1,6 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: baseURL + 'sys/log/list',
+        url: baseURL + 'system/log/list',
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'id', width: 30, key: true },
@@ -22,14 +22,14 @@ $(function () {
         multiselect: false,
         pager: "#jqGridPager",
         jsonReader : {
-            root: "page.list",
-            page: "page.currPage",
-            total: "page.totalPage",
-            records: "page.totalCount"
+            root: "data.list",
+            page: "data.currPage",
+            total: "data.totalPage",
+            records: "data.totalCount"
         },
         prmNames : {
             page:"page", 
-            rows:"limit", 
+            rows:"rows",
             order: "order"
         },
         gridComplete:function(){
@@ -44,7 +44,7 @@ var vm = new Vue({
 	data:{
 		q:{
 			key: null
-		},
+		}
 	},
 	methods: {
 		query: function () {
