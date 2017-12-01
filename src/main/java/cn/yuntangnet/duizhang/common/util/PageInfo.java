@@ -43,7 +43,7 @@ public class PageInfo<T> extends Page<T> {
                 }
             }
         }
-        super.setCurrent((page - 1) * rows).setSize(rows).setOrderByField(orderField).setAsc(isAsc);
+        super.setCurrent(page).setSize(rows).setOrderByField(orderField).setAsc(isAsc);
     }
 
     public PageInfo(int current, int size, String order) {

@@ -65,6 +65,7 @@ public class MapperGenerator extends DuizhangApplicationTests {
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
+        strategy.setRestControllerStyle(true); //
         // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
         strategy.setTablePrefix(new String[] { "tlog_", "tsys_" });// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
@@ -81,7 +82,7 @@ public class MapperGenerator extends DuizhangApplicationTests {
         // 自定义 service 实现类父类
         // strategy.setSuperServiceImplClass("com.baomidou.demo.TestServiceImpl");
         // 自定义 controller 父类
-        // strategy.setSuperControllerClass("com.baomidou.demo.TestController");
+        strategy.setSuperControllerClass("cn.yuntangnet.duizhang.modules.system.controller.AbstractController");
         // 【实体】是否生成字段常量（默认 false）
         // public static final String ID = "test_id";
         // strategy.setEntityColumnConstant(true);
