@@ -3,8 +3,8 @@ package cn.yuntangnet.duizhang.modules.system.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
+import cn.yuntangnet.duizhang.modules.system.controller.AbstractController;
 
 /**
  * <p>
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/system/systemRole")
-public class SystemRoleController {
+public class SystemRoleController extends AbstractController {
 
 }
 

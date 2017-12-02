@@ -3,13 +3,16 @@ package cn.yuntangnet.duizhang.modules.system.service.impl;
 import cn.yuntangnet.duizhang.common.util.Constant;
 import cn.yuntangnet.duizhang.common.util.Constant.MenuType;
 import cn.yuntangnet.duizhang.modules.system.entity.SystemMenu;
+import cn.yuntangnet.duizhang.modules.system.entity.SystemRoleMenu;
 import cn.yuntangnet.duizhang.modules.system.mapper.SystemMenuMapper;
 import cn.yuntangnet.duizhang.modules.system.service.ISystemMenuService;
+import cn.yuntangnet.duizhang.modules.system.service.ISystemRoleMenuService;
 import cn.yuntangnet.duizhang.modules.system.service.ISystemUserService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +30,12 @@ public class SystemMenuServiceImpl extends ServiceImpl<SystemMenuMapper, SystemM
 
     private final ISystemUserService systemUserService;
 
+    private final ISystemRoleMenuService systemRoleMenuService;
+
     @Autowired
-    public SystemMenuServiceImpl(ISystemUserService systemUserService) {
+    public SystemMenuServiceImpl(ISystemUserService systemUserService, ISystemRoleMenuService systemRoleMenuService) {
         this.systemUserService = systemUserService;
+        this.systemRoleMenuService = systemRoleMenuService;
     }
 
 
@@ -103,6 +109,22 @@ public class SystemMenuServiceImpl extends ServiceImpl<SystemMenuMapper, SystemM
             }
         }
         return userMenuList;
+    }
+
+    /**
+     * 根据菜单ID删除子菜单
+     *
+     * @param menuId
+     */
+    @Override
+    @Transactional
+    public void deleteMenuById(Long menuId) {
+        //根据主键删除菜单数据
+        deleteById(menuId);
+        //删除角色菜单关联信息中的菜单数据
+        EntityWrapper<SystemRoleMenu> wrapper = new EntityWrapper<>();
+        wrapper.eq("menu_id", menuId);
+        systemRoleMenuService.delete(wrapper);
     }
 
     /**

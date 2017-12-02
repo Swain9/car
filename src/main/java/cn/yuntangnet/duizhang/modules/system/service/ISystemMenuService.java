@@ -39,4 +39,11 @@ public interface ISystemMenuService extends IService<SystemMenu> {
      * @return List<SystemMenu>
      */
     List<SystemMenu> queryListParentId(Long parentId, List<Long> menuIdList);
+
+    /**
+     * 根据菜单ID删除子菜单
+     *
+     * @param menuId
+     */
+    void deleteMenuById(Long menuId);
 }

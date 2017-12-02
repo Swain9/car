@@ -135,6 +135,19 @@ public class SystemMenu extends Model<SystemMenu> {
     private Boolean open;
     @TableField(exist = false)
     private List<?> list;
+    /**
+     * 父菜单名称
+     */
+    @TableField(exist = false)
+    private String parentName;
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
 
     public Boolean getOpen() {
         return open;
