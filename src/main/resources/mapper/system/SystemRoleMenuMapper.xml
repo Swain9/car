@@ -9,4 +9,18 @@
         <result column="menu_id" property="menuId" />
     </resultMap>
 
+    <insert id="save">
+        INSERT INTO system_role_menu
+        (
+        `role_id`,
+        `menu_id`
+        )
+        VALUES
+        <foreach collection="menuIdList" item="item" index="index" separator="," >
+            (
+            #{roleId},
+            #{item}
+            )
+        </foreach>
+    </insert>
 </mapper>

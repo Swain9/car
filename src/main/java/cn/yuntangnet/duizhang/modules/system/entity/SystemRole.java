@@ -8,7 +8,10 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -28,6 +31,7 @@ public class SystemRole extends Model<SystemRole> {
     /**
      * 角色名称
      */
+    @NotBlank(message="角色名称不能为空")
 	@TableField("role_name")
 	private String roleName;
     /**
@@ -45,6 +49,16 @@ public class SystemRole extends Model<SystemRole> {
 	@TableField("create_time")
 	private Date createTime;
 
+    @TableField(exist = false)
+	private List<Long> menuIdList;
+
+	public List<Long> getMenuIdList() {
+		return menuIdList;
+	}
+
+	public void setMenuIdList(List<Long> menuIdList) {
+		this.menuIdList = menuIdList;
+	}
 
 	public Long getRoleId() {
 		return roleId;

@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.1.86:3306/duizhang?useSSL=false
+    url: jdbc:mysql://192.168.1.86:3306/duizhang?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: yt917355
 #spring.aop.auto:true 默认为true

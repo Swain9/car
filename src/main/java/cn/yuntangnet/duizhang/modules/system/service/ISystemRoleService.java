@@ -12,5 +12,24 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2017-11-22
  */
 public interface ISystemRoleService extends IService<SystemRole> {
+    /**
+     * 保存一个角色
+     *
+     * @param role SystemRole
+     */
+    void save(SystemRole role);
 
+    /**
+     * 更新一个角色
+     *
+     * @param role SystemRole
+     */
+    void update(SystemRole role);
+
+    /**
+     * 删除角色信息
+     *
+     * @param roleIds Long[]
+     */
+    void deleteBatch(Long[] roleIds);
 }

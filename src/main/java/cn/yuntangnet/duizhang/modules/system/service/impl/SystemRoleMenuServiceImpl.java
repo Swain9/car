@@ -4,7 +4,13 @@ import cn.yuntangnet.duizhang.modules.system.entity.SystemRoleMenu;
 import cn.yuntangnet.duizhang.modules.system.mapper.SystemRoleMenuMapper;
 import cn.yuntangnet.duizhang.modules.system.service.ISystemRoleMenuService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -17,4 +23,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class SystemRoleMenuServiceImpl extends ServiceImpl<SystemRoleMenuMapper, SystemRoleMenu> implements ISystemRoleMenuService {
 
+    /**
+     * 更新或修改角色与菜单关联信息
+     *
+     * @param roleId     roleId
+     * @param menuIdList menuIdList
+     */
+    @Override
+    @Transactional
+    public void saveOrUpdate(Long roleId, List<Long> menuIdList) {
+        //先删除角色与菜单关系
+        deleteById(roleId);
+
+        if (menuIdList.size() == 0) {
+            return;
+        }
+
+        //保存角色与菜单关系
+        Map<String, Object> map = new HashMap<>();
+        map.put("roleId", roleId);
+        map.put("menuIdList", menuIdList);
+        baseMapper.save(map);
+    }
 }

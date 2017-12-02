@@ -12,5 +12,10 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @since 2017-11-22
  */
 public interface SystemRoleMapper extends BaseMapper<SystemRole> {
-
+    /**
+     * 删除角色
+     *
+     * @param roleIds
+     */
+    void deleteBatch(Long[] roleIds);
 }
