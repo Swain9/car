@@ -22,4 +22,25 @@ public interface ISystemUserService extends IService<SystemUser> {
      * @return List<Long>
      */
     List<Long> queryAllMenuId(Long userId);
+
+    /**
+     * 保存一个用户信息
+     *
+     * @param user
+     */
+    void save(SystemUser user);
+
+    /**
+     * 更新一个用户信息
+     *
+     * @param user
+     */
+    void update(SystemUser user);
+
+    /**
+     * 删除用户信息
+     *
+     * @param userIds
+     */
+    void deleteBatch(Long[] userIds);
 }

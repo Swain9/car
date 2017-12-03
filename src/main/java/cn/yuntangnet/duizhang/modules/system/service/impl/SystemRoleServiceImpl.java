@@ -4,9 +4,9 @@ import cn.yuntangnet.duizhang.common.util.Constant;
 import cn.yuntangnet.duizhang.exception.RtException;
 import cn.yuntangnet.duizhang.modules.system.entity.SystemRole;
 import cn.yuntangnet.duizhang.modules.system.mapper.SystemRoleMapper;
+import cn.yuntangnet.duizhang.modules.system.mapper.SystemUserMapper;
 import cn.yuntangnet.duizhang.modules.system.service.ISystemRoleMenuService;
 import cn.yuntangnet.duizhang.modules.system.service.ISystemRoleService;
-import cn.yuntangnet.duizhang.modules.system.service.ISystemUserService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,12 +27,12 @@ import java.util.List;
 public class SystemRoleServiceImpl extends ServiceImpl<SystemRoleMapper, SystemRole> implements ISystemRoleService {
 
     private final ISystemRoleMenuService systemRoleMenuService;
-    private final ISystemUserService iSystemUserService;
+    private final SystemUserMapper systemUserMapper;
 
     @Autowired
-    public SystemRoleServiceImpl(ISystemRoleMenuService systemRoleMenuService, ISystemUserService iSystemUserService) {
+    public SystemRoleServiceImpl(ISystemRoleMenuService systemRoleMenuService, SystemUserMapper systemUserMapper) {
         this.systemRoleMenuService = systemRoleMenuService;
-        this.iSystemUserService = iSystemUserService;
+        this.systemUserMapper = systemUserMapper;
     }
 
     /**
@@ -82,6 +82,17 @@ public class SystemRoleServiceImpl extends ServiceImpl<SystemRoleMapper, SystemR
     }
 
     /**
+     * 查询用户创建的角色ID列表
+     *
+     * @param createUserId
+     * @return
+     */
+    @Override
+    public List<Long> queryRoleIdList(Long createUserId) {
+        return baseMapper.queryRoleIdList(createUserId);
+    }
+
+    /**
      * 检查权限是否越权
      */
     private void checkPrems(SystemRole role) {
@@ -90,9 +101,9 @@ public class SystemRoleServiceImpl extends ServiceImpl<SystemRoleMapper, SystemR
             return;
         }
 
-        //查询用户所拥有的菜单列表
-        List<Long> menuIdList = iSystemUserService.queryAllMenuId(role.getCreateUserId());
-
+        //todo [循环依赖] 查询用户所拥有的菜单列表
+        //List<Long> menuIdList = iSystemUserService.queryAllMenuId(role.getCreateUserId());
+        List<Long> menuIdList = systemUserMapper.queryAllMenuId(role.getCreateUserId());
         //判断是否越权
         if (!menuIdList.containsAll(role.getMenuIdList())) {
             throw new RtException("新增角色的权限，已超出你的权限范围");

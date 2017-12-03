@@ -2,13 +2,19 @@ package cn.yuntangnet.duizhang.modules.system.entity;
 
 import java.io.Serializable;
 
+import cn.yuntangnet.duizhang.common.validator.group.AddGroup;
+import cn.yuntangnet.duizhang.common.validator.group.UpdateGroup;
 import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -28,10 +34,12 @@ public class SystemUser extends Model<SystemUser> {
     /**
      * 用户名
      */
+    @NotBlank(message="用户名不能为空", groups = {AddGroup.class, UpdateGroup.class})
 	private String username;
     /**
      * 密码
      */
+    @NotBlank(message="密码不能为空", groups = AddGroup.class)
 	private String password;
     /**
      * 盐
@@ -40,6 +48,8 @@ public class SystemUser extends Model<SystemUser> {
     /**
      * 邮箱
      */
+    @NotBlank(message="邮箱不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    @Email(message="邮箱格式不正确", groups = {AddGroup.class, UpdateGroup.class})
 	private String email;
     /**
      * 手机号
@@ -61,7 +71,21 @@ public class SystemUser extends Model<SystemUser> {
 	private Date createTime;
 
 
-	public Long getUserId() {
+    /**
+     * 角色ID列表
+     */
+    @TableField(exist = false)
+    private List<Long> roleIdList;
+
+    public List<Long> getRoleIdList() {
+        return roleIdList;
+    }
+
+    public void setRoleIdList(List<Long> roleIdList) {
+        this.roleIdList = roleIdList;
+    }
+
+    public Long getUserId() {
 		return userId;
 	}
 

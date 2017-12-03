@@ -15,10 +15,31 @@
         <result column="create_time" property="createTime"/>
     </resultMap>
 
+    <!-- 查询用户的所有权限 -->
+    <select id="queryAllPerms" resultType="string">
+        select m.perms from system_user_role ur
+        LEFT JOIN system_role_menu rm on ur.role_id = rm.role_id
+        LEFT JOIN system_menu m on rm.menu_id = m.menu_id
+        where ur.user_id = #{userId}
+    </select>
+
     <!-- 查询用户的所有菜单ID -->
     <select id="queryAllMenuId" resultType="Long">
-        SELECT DISTINCT rm.menu_id FROM sys_user_role ur
-        LEFT JOIN sys_role_menu rm ON ur.role_id = rm.role_id
+        SELECT DISTINCT rm.menu_id FROM system_user_role ur
+        LEFT JOIN system_role_menu rm ON ur.role_id = rm.role_id
         WHERE ur.user_id = #{userId}
     </select>
+
+    <!--删除用户信息-->
+    <delete id="deleteBatch">
+        delete from `system_user` where user_id in
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+        ;
+        delete from system_user_role where user_id in
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
 </mapper>

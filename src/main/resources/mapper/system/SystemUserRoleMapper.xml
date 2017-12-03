@@ -4,9 +4,23 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.yuntangnet.duizhang.modules.system.entity.SystemUserRole">
-        <id column="id" property="id" />
-        <result column="user_id" property="userId" />
-        <result column="role_id" property="roleId" />
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="role_id" property="roleId"/>
     </resultMap>
 
+    <insert id="save">
+        insert into system_user_role
+        (
+        `user_id`,
+        `role_id`
+        )
+        values
+        <foreach collection="roleIdList" item="item" index="index" separator=",">
+            (
+            #{userId},
+            #{item}
+            )
+        </foreach>
+    </insert>
 </mapper>

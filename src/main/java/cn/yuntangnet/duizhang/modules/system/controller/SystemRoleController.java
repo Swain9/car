@@ -79,13 +79,31 @@ public class SystemRoleController extends AbstractController {
         SystemRole role = systemRoleService.selectById(roleId);
 
         //查询角色对应的菜单
+        //select menu_id from sys_role_menu where role_id = #{value}
         EntityWrapper<SystemRoleMenu> wrapper = new EntityWrapper<>();
         wrapper.setSqlSelect("menu_id").eq("role_id", roleId);
         List<Object> menuIdList = systemRoleMenuService.selectObjs(wrapper);
-        //List<Long> menuIdList = systemRoleMenuService.queryMenuIdList(roleId);
-        role.setMenuIdList((List<Long>)(List)menuIdList);
+        role.setMenuIdList((List<Long>) (List) menuIdList);
 
         return ResultBean.ok(role);
+    }
+
+    /**
+     * 角色列表
+     */
+    @RequestMapping("/select")
+    @RequiresPermissions("sys:role:select")
+    public ResultBean select() {
+
+        EntityWrapper<SystemRole> wrapper = new EntityWrapper<>();
+        //如果不是超级管理员，则只查询自己所拥有的角色列表
+        if (getUserId() != Constant.SUPER_ADMIN) {
+            wrapper.eq("create_user_id", getUserId());
+        }
+        wrapper.orderBy("role_id");
+        List<SystemRole> list = systemRoleService.selectList(wrapper);
+
+        return ResultBean.ok(list);
     }
 
     /**

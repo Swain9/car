@@ -29,4 +29,11 @@ public interface SystemUserMapper extends BaseMapper<SystemUser> {
      * @return 菜单ID列表
      */
     List<Long> queryAllMenuId(Long userId);
+
+    /**
+     * 删除用户信息
+     *
+     * @param userIds
+     */
+    void deleteBatch(Long[] userIds);
 }
