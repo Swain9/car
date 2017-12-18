@@ -23,7 +23,7 @@ import java.util.Map;
 public class MapperGenerator extends DuizhangApplicationTests {
 
     @Test
-    public void generator(){
+    public void generator() {
         AutoGenerator mpg = new AutoGenerator();
 
         // 全局配置
@@ -48,7 +48,7 @@ public class MapperGenerator extends DuizhangApplicationTests {
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setDbType(DbType.MYSQL);
-        dsc.setTypeConvert(new MySqlTypeConvert(){
+        dsc.setTypeConvert(new MySqlTypeConvert() {
             // 自定义数据库表字段类型转换【可选】
             @Override
             public DbColumnType processTypeConvert(String fieldType) {
@@ -59,17 +59,17 @@ public class MapperGenerator extends DuizhangApplicationTests {
         });
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("yt917355");
-        dsc.setUrl("jdbc:mysql://192.168.1.86:3306/duizhang?useSSL=false");
+        dsc.setPassword("Yt917355+");
+        dsc.setUrl("jdbc:mysql://192.168.1.87:3306/duizhang?useSSL=false");
         mpg.setDataSource(dsc);
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         strategy.setRestControllerStyle(true); //
         // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
-        strategy.setTablePrefix(new String[] { "tlog_", "tsys_" });// 此处可以修改为您的表前缀
+        strategy.setTablePrefix(new String[]{"tlog_", "tsys_"});// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        // strategy.setInclude(new String[] { "user" }); // 需要生成的表
+        strategy.setInclude(new String[]{"user_wechat", "work_order"}); // 需要生成的表
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         // 自定义实体父类
         // strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");
@@ -94,7 +94,7 @@ public class MapperGenerator extends DuizhangApplicationTests {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("cn.yuntangnet.duizhang.modules");
-        pc.setModuleName("system");
+        pc.setModuleName("users");
         mpg.setPackageInfo(pc);
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 【可无】

@@ -91,4 +91,71 @@ public class Constant {
             return value;
         }
     }
+
+    /**
+     * 用户等级
+     */
+    public enum UserLevel {
+        /**
+         * 普通用户
+         */
+        PUTONG("1"),
+        /**
+         * 代理
+         */
+        DAILI("2");
+
+        private String value;
+
+        UserLevel(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 用户来源
+     */
+    public enum UserFrom {
+        HOUTAI("1"),
+        WEIXIN("2"),
+        XIAOCHENGXU("3");
+
+        private String value;
+
+        UserFrom(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 数据状态
+     */
+    public enum DataStatus {
+        /**
+         * 正常
+         */
+        ENABLED(1),
+        /**
+         * 暂停
+         */
+        DISABLED(0);
+
+        private int value;
+
+        DataStatus(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
 }

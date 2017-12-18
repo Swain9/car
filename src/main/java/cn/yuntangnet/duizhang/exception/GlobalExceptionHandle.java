@@ -2,6 +2,7 @@ package cn.yuntangnet.duizhang.exception;
 
 import cn.yuntangnet.duizhang.common.util.ResultBean;
 import org.apache.shiro.ShiroException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,11 +41,15 @@ public class GlobalExceptionHandle {
     @ExceptionHandler(ShiroException.class)
     public ResultBean handleAuthorizationException(ShiroException e) {
         logger.error(e.getMessage(), e);
+        String msg = "未知错误";
         if (e instanceof AuthorizationException) {
-            return ResultBean.error("没有权限，请联系管理员授权");
+            msg = "没有权限，请联系管理员授权";
+        } else if (e instanceof IncorrectCredentialsException) {
+            msg = "账号密码错误";
         } else {
-            return ResultBean.error(e.getMessage());
+
         }
+        return ResultBean.error(msg);
     }
 
     @ExceptionHandler(Exception.class)
