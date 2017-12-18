@@ -8,6 +8,7 @@ import cn.yuntangnet.duizhang.modules.system.entity.SystemLog;
 import cn.yuntangnet.duizhang.modules.system.service.ISystemLogService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,8 +47,9 @@ public class SystemLogController extends AbstractController {
 
         PageInfo<SystemLog> pageInfo = new PageInfo<>(params);
         EntityWrapper<SystemLog> wrapper = new EntityWrapper<>();
-        if (params.get("key") != null) {
-            String key = (String) params.get("key");
+        String key = (String) params.get("key");
+
+        if (StringUtils.isNotBlank(key)) {
             wrapper.like("username", key).or().like("operation", key);
         }
         //查询列表数据

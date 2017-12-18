@@ -17,6 +17,7 @@ import cn.yuntangnet.duizhang.modules.system.service.ISystemUserService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,8 +74,9 @@ public class SystemUserController extends AbstractController {
         if (getUserId() != Constant.SUPER_ADMIN) {
             wrapper.eq("create_user_id", getUserId());
         }
-        if (params.get("username") != null) {
-            wrapper.like("username", (String) params.get("username"));
+        String username = (String) params.get("username");
+        if (StringUtils.isNotBlank(username)) {
+            wrapper.like("username", username);
         }
         Page<SystemUser> page = systemUserService.selectPage(pageInfo, wrapper);
         BootstrapPageBean pageBean = new BootstrapPageBean(page.getRecords(), page.getTotal(), page.getSize(), page.getCurrent());

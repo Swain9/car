@@ -10,6 +10,7 @@ import cn.yuntangnet.duizhang.modules.system.entity.SystemConfig;
 import cn.yuntangnet.duizhang.modules.system.service.ISystemConfigService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -48,8 +49,8 @@ public class SystemConfigController extends AbstractController {
 
         PageInfo<SystemConfig> pageInfo = new PageInfo<>(params);
         EntityWrapper<SystemConfig> wrapper = new EntityWrapper<>();
-        if (params.get("key") != null) {
-            String key = (String) params.get("key");
+        String key = (String) params.get("key");
+        if (StringUtils.isNotBlank(key)) {
             //wrapper.where(" key LIKE {0}", key);
             wrapper.like("`key`", key);
         }

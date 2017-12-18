@@ -143,7 +143,7 @@ public class SystemMenuController extends AbstractController {
         //数据校验
         verifyForm(menu);
 
-        systemMenuService.updateById(menu);
+        systemMenuService.updateAllColumnById(menu);
 
         return ResultBean.ok();
     }

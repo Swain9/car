@@ -13,6 +13,7 @@ import cn.yuntangnet.duizhang.modules.system.service.ISystemRoleMenuService;
 import cn.yuntangnet.duizhang.modules.system.service.ISystemRoleService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -55,8 +56,8 @@ public class SystemRoleController extends AbstractController {
         if (getUserId() != Constant.SUPER_ADMIN) {
             wrapper.eq("create_user_id", getUserId());
         }
-        if (params.get("roleName") != null) {
-            String roleName = (String) params.get("roleName");
+        String roleName = (String) params.get("roleName");
+        if (StringUtils.isNotBlank(roleName)) {
             wrapper.like("role_name", roleName);
         }
 
