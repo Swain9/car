@@ -1,5 +1,6 @@
 package cn.yuntangnet.duizhang.modules.system.controller;
 
+import cn.yuntangnet.duizhang.common.annotation.SystemLogAnnotation;
 import cn.yuntangnet.duizhang.common.util.ResultBean;
 import cn.yuntangnet.duizhang.common.util.ShiroUtils;
 import cn.yuntangnet.duizhang.modules.system.service.ISystemUserService;
@@ -41,6 +42,7 @@ public class SystemLoginController extends AbstractController {
      *
      * @return
      */
+    @SystemLogAnnotation("管理员登陆")
     @PostMapping("/system/login")
     public ResultBean login(String username, String password, String captcha) {
         String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);

@@ -36,10 +36,13 @@ public class WorkOrderController {
 
         String key = (String) params.get("key");
         String orderStatus = (String) params.get("orderStatus");
+        String orderType = (String) params.get("orderType");
         if (StringUtils.isNotBlank(orderStatus)) {
             wrapper.eq("order_status", orderStatus);
         }
-
+        if (StringUtils.isNotBlank(orderType)) {
+            wrapper.eq("order_type", orderType);
+        }
         if (StringUtils.isNotBlank(key)) {
             wrapper.and().like("agent_area", key).or().like("agent_name", key).or().like("user_phone", key);
         }
@@ -75,5 +78,22 @@ public class WorkOrderController {
         return ResultBean.ok();
     }
 
+    //todo 如果是contentType: "application/json", 则需要@RequestBody
+    //http://blog.csdn.net/LostSh/article/details/68923874
+    @SystemLogAnnotation("更改工单类型")
+    @RequestMapping("/change")
+    @RequiresPermissions("users:wo:change")
+    public ResultBean change(@RequestBody WorkOrder param) {
+        WorkOrder exitOrder = workOrderService.selectById(param.getId());
+        if (exitOrder == null) {
+            return ResultBean.error("工单不存在");
+        }
+        if ("2".equals(exitOrder.getOrderStatus())) {
+            return ResultBean.error("工单已处理");
+        }
+        exitOrder.setOrderType(param.getOrderType());
+        workOrderService.updateById(exitOrder);
+        return ResultBean.ok("修改成功");
+    }
 
 }

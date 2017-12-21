@@ -108,16 +108,6 @@ var vm = new Vue({
                     location.href = baseURL + 'login.html';
                 }
             });
-        },
-        donate: function () {
-            layer.open({
-                type: 2,
-                title: false,
-                area: ['806px', '467px'],
-                closeBtn: 1,
-                shadeClose: false,
-                content: ['茂林', 'no']
-            });
         }
     },
     created: function () {

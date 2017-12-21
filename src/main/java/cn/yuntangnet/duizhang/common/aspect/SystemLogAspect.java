@@ -61,6 +61,7 @@ public class SystemLogAspect {
         systemLog.setMethod(className + "." + methodName + "()");
         //请求的参数
         Object[] args = point.getArgs();
+        //todo 有多个参数,需要处理
         String params = JsonUtils.objectToJson(args[0]);
         systemLog.setParams(params);
         //执行时长

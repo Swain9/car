@@ -26,6 +26,10 @@ $(function () {
                             return '<span class="label label-success">积分发放</span>';
                         case '7':
                             return '<span class="label label-success">交车资料</span>';
+                        case '8':
+                            return '<span class="label label-success">云堂商城</span>';
+                        case '9':
+                            return '<span class="label label-success">话费油卡</span>';
                         default:
                             return '<span class="label label-danger">未知</span>';
                     }
@@ -78,12 +82,14 @@ var vm = new Vue({
     data: {
         q: {
             key: "",
-            orderStatus: ""
+            orderStatus: "",
+            orderType: ""
         },
         showList: true,
         title: null,
         disabled: true,
         orderTypeName: null,
+        layerTypeOrder: "1",
         hasFile: true,
         order: {}
     },
@@ -101,6 +107,44 @@ var vm = new Vue({
             vm.title = "审核";
 
             vm.getOrder(id);
+        },
+        change: function () {
+            var id = getSelectedRow();
+            if (id == null) {
+                return;
+            }
+            vm
+            layer.open({
+                type: 1,
+                offset: '50px',
+                skin: 'layui-layer-molv',
+                title: "更改类型",
+                area: ['300px', '200px'],
+                shade: 0,
+                shadeClose: false,
+                content: jQuery("#layer_order_type"),
+                btn: ['确定', '取消'],
+                btn1: function (index) {
+                    var value = {id: id, orderType: vm.layerTypeOrder};
+                    $.ajax({
+                        type: "POST",
+                        url: baseURL + "users/wo/change",
+                        contentType: "application/json",
+                        data: JSON.stringify(value),
+                        success: function (r) {
+                            if (r.code === 200) {
+                                alert('操作成功', function () {
+                                    vm.reload();
+                                });
+                            } else {
+                                alert(r.msg);
+                            }
+                        }
+                    });
+                    layer.close(index);
+                }
+            });
+
         },
         saveOrUpdate: function () {
             if (vm.validator()) {
@@ -151,6 +195,10 @@ var vm = new Vue({
                     return "积分发放";
                 case '7':
                     return "交车资料";
+                case '8':
+                    return "云堂商城";
+                case '9':
+                    return "话费油卡";
                 default:
                     return "未知";
             }
@@ -159,7 +207,7 @@ var vm = new Vue({
             vm.showList = true;
             var page = $("#jqGrid").jqGrid('getGridParam', 'page');
             $("#jqGrid").jqGrid('setGridParam', {
-                postData: {'key': vm.q.key, 'orderStatus': vm.q.orderStatus},
+                postData: {'key': vm.q.key, 'orderStatus': vm.q.orderStatus, 'orderType': vm.q.orderType},
                 page: page
             }).trigger("reloadGrid");
         },

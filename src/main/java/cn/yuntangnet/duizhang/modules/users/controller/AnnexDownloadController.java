@@ -3,6 +3,7 @@ package cn.yuntangnet.duizhang.modules.users.controller;
 import cn.yuntangnet.duizhang.modules.users.entity.WorkOrder;
 import cn.yuntangnet.duizhang.modules.users.service.IWorkOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,8 @@ import java.nio.file.Paths;
 @Controller
 public class AnnexDownloadController {
 
-    private String upload = "C:/upload/";
+    @Value("${upload}")
+    private String upload;
 
     @Autowired
     private IWorkOrderService workOrderService;
