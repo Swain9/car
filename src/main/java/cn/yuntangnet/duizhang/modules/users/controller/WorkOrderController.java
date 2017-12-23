@@ -44,7 +44,7 @@ public class WorkOrderController {
             wrapper.eq("order_type", orderType);
         }
         if (StringUtils.isNotBlank(key)) {
-            wrapper.and().like("agent_area", key).or().like("agent_name", key).or().like("user_phone", key);
+            wrapper.andNew().like("agent_area", key).or().like("agent_name", key).or().like("user_phone", key);
         }
 
         Page<WorkOrder> page = workOrderService.selectPage(pageInfo, wrapper);
