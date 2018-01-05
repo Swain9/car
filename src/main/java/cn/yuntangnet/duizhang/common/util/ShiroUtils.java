@@ -1,6 +1,5 @@
 package cn.yuntangnet.duizhang.common.util;
 
-import cn.yuntangnet.duizhang.exception.RtException;
 import cn.yuntangnet.duizhang.modules.system.entity.SystemUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -77,7 +76,8 @@ public class ShiroUtils {
     public static String getKaptcha(String key) {
         Object kaptcha = getSessionAttribute(key);
         if (kaptcha == null) {
-            throw new RtException("验证码已失效");
+            //throw new RtException("验证码已失效");
+            return null;
         }
         getSession().removeAttribute(key);
         return kaptcha.toString();

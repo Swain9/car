@@ -1,11 +1,15 @@
 package cn.yuntangnet.duizhang.modules.system.controller;
 
-import cn.yuntangnet.duizhang.common.annotation.SystemLogAnnotation;
+import cn.yuntangnet.duizhang.common.annotation.SystemLoginAnnotation;
 import cn.yuntangnet.duizhang.common.util.ResultBean;
 import cn.yuntangnet.duizhang.common.util.ShiroUtils;
 import cn.yuntangnet.duizhang.modules.system.service.ISystemUserService;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,17 +46,23 @@ public class SystemLoginController extends AbstractController {
      *
      * @return
      */
-    @SystemLogAnnotation("管理员登陆")
+    @SystemLoginAnnotation("管理员登陆")
     @PostMapping("/system/login")
     public ResultBean login(String username, String password, String captcha) {
         String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
-        if (!captcha.equalsIgnoreCase(kaptcha)) {
+        if (StringUtils.isBlank(kaptcha) || StringUtils.isBlank(captcha) || !captcha.equalsIgnoreCase(kaptcha)) {
             return ResultBean.error("验证码错误");
         }
 
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 
-        ShiroUtils.login(token);
+        try {
+            ShiroUtils.login(token);
+        } catch (UnknownAccountException | IncorrectCredentialsException e) {
+            return ResultBean.error("账号或密码错误");
+        } catch (LockedAccountException e) {
+            return ResultBean.error("禁止登陆");
+        }
 
         return ResultBean.ok();
     }

@@ -1,15 +1,16 @@
 package cn.yuntangnet.duizhang.common.aspect;
 
-import cn.yuntangnet.duizhang.common.annotation.SystemLogAnnotation;
+import cn.yuntangnet.duizhang.common.annotation.SystemLoginAnnotation;
 import cn.yuntangnet.duizhang.common.util.HttpContextUtils;
 import cn.yuntangnet.duizhang.common.util.IPUtils;
 import cn.yuntangnet.duizhang.common.util.JsonUtils;
+import cn.yuntangnet.duizhang.common.util.ResultBean;
 import cn.yuntangnet.duizhang.modules.system.entity.SystemLog;
 import cn.yuntangnet.duizhang.modules.system.entity.SystemUser;
 import cn.yuntangnet.duizhang.modules.system.service.ISystemLogService;
 import org.apache.shiro.SecurityUtils;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -20,41 +21,40 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
- * @author 茂林
- * @since 2017/11/21 13:38
+ * @author 张茂林
+ * @since 2018/1/5 14:36
  */
 @Aspect
 @Component
-public class SystemLogAspect {
-
-    private final ISystemLogService systemLogService;
+public class SystemLoginAspect {
 
     @Autowired
-    public SystemLogAspect(ISystemLogService systemLogService) {
+    private ISystemLogService systemLogService;
+
+    @Autowired
+    public SystemLoginAspect(ISystemLogService systemLogService) {
         this.systemLogService = systemLogService;
     }
 
-    @Pointcut(value = "@annotation(cn.yuntangnet.duizhang.common.annotation.SystemLogAnnotation)")
-    public void systemLogAspect() {
+    @Pointcut(value = "@annotation(cn.yuntangnet.duizhang.common.annotation.SystemLoginAnnotation)")
+    public void systemLoginAspect() {
 
     }
 
-    //todo 问题:不能解决方法是否执行成功或失败. 不能记录用户是否登陆成功或失败
-    @Around(value = "systemLogAspect() && @annotation(systemLogAnnotation)")
-    public Object saveSystemLog(ProceedingJoinPoint point, SystemLogAnnotation systemLogAnnotation) throws Throwable {
-        //当前系统个时间
-        long beginTime = System.currentTimeMillis();
-        //执行方法
-        Object result = point.proceed();
+    @AfterReturning(value = "systemLoginAspect() && @annotation(test)", returning = "bean")
+    public void saveLoginLog(JoinPoint point, ResultBean bean, SystemLoginAnnotation test) {
+        if (bean.getCode() != 200) {
+            return;
+        }
         //执行时长(毫秒)
-        long time = System.currentTimeMillis() - beginTime;
+        long time = 0L;
         //保存日志
         SystemLog systemLog = new SystemLog();
         //用户名
         String username = ((SystemUser) SecurityUtils.getSubject().getPrincipal()).getUsername();
         systemLog.setUsername(username);
         //用户操作
-        systemLog.setOperation(systemLogAnnotation.value());
+        systemLog.setOperation(test.value());
         //请求的方法名
         String className = point.getTarget().getClass().getName();
         MethodSignature signature = (MethodSignature) point.getSignature();
@@ -74,7 +74,5 @@ public class SystemLogAspect {
         systemLog.setCreateDate(new Date());
         //保存日志
         systemLogService.insert(systemLog);
-        //返回结果
-        return result;
     }
 }
