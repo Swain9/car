@@ -30,6 +30,8 @@ $(function () {
                             return '<span class="label label-success">云堂商城</span>';
                         case '9':
                             return '<span class="label label-success">话费油卡</span>';
+                        case '10':
+                            return '<span class="label label-success">代理底单</span>';
                         default:
                             return '<span class="label label-danger">未知</span>';
                     }
@@ -199,6 +201,8 @@ var vm = new Vue({
                     return "云堂商城";
                 case '9':
                     return "话费油卡";
+                case '10':
+                    return "代理底单";
                 default:
                     return "未知";
             }
