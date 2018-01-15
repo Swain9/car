@@ -32,6 +32,8 @@ $(function () {
                             return '<span class="label label-success">话费油卡</span>';
                         case '10':
                             return '<span class="label label-success">代理底单</span>';
+                        case '11':
+                            return '<span class="label label-success">报单汇总</span>';
                         default:
                             return '<span class="label label-danger">未知</span>';
                     }
@@ -203,6 +205,8 @@ var vm = new Vue({
                     return "话费油卡";
                 case '10':
                     return "代理底单";
+                case '11':
+                    return "报单汇总";
                 default:
                     return "未知";
             }

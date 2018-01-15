@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * </p>
  *
  * @author 茂林
- * @since 2017-12-15
+ * @since 2018-01-12
  */
 public interface UserWechatMapper extends BaseMapper<UserWechat> {
 

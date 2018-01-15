@@ -16,7 +16,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author 茂林
- * @since 2017-12-15
+ * @since 2018-01-12
  */
 @TableName("user_wechat")
 public class UserWechat extends Model<UserWechat> {
@@ -67,7 +67,7 @@ public class UserWechat extends Model<UserWechat> {
     /**
      * 头像
      */
-	private String headimagurl;
+	private String headimgurl;
     /**
      * 用户关注时间
      */
@@ -183,12 +183,12 @@ public class UserWechat extends Model<UserWechat> {
 		this.languages = languages;
 	}
 
-	public String getHeadimagurl() {
-		return headimagurl;
+	public String getHeadimgurl() {
+		return headimgurl;
 	}
 
-	public void setHeadimagurl(String headimagurl) {
-		this.headimagurl = headimagurl;
+	public void setHeadimgurl(String headimgurl) {
+		this.headimgurl = headimgurl;
 	}
 
 	public Date getSubcribeTime() {
@@ -265,7 +265,7 @@ public class UserWechat extends Model<UserWechat> {
 			", country=" + country +
 			", province=" + province +
 			", languages=" + languages +
-			", headimagurl=" + headimagurl +
+			", headimgurl=" + headimgurl +
 			", subcribeTime=" + subcribeTime +
 			", remark=" + remark +
 			", groupid=" + groupid +
