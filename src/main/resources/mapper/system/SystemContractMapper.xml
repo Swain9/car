@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yuntangnet.duizhang.modules.system.mapper.SystemContractMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.yuntangnet.duizhang.modules.system.entity.SystemContract">
+        <id column="id" property="id" />
+        <result column="order_id" property="orderId" />
+        <result column="contract_msg" property="contractMsg" />
+        <result column="annex1" property="annex1" />
+        <result column="send_id" property="sendId" />
+        <result column="send_name" property="sendName" />
+        <result column="annex2" property="annex2" />
+        <result column="contract_status" property="contractStatus" />
+        <result column="admin_name" property="adminName" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+    </resultMap>
+
+</mapper>

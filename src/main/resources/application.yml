@@ -10,11 +10,11 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.1.87:3306/duizhang?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-#    url: jdbc:mysql://localhost:3306/duizhang?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+#    url: jdbc:mysql://192.168.1.87:3306/duizhang?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/duizhang?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: Yt917355+
-#    password: yt917355
+#    password: Yt917355+
+    password: yt917355
     druid:
       initial-size: 10
       max-active: 100
@@ -44,8 +44,8 @@ spring:
 #spring.aop.auto:true 默认为true
 # 环境 dev|test|pro
   profiles:
-    active: dev
-#    active: pro
+#    active: dev
+    active: pro
     # jackson时间格式化
   jackson:
     time-zone: GMT+8
@@ -99,8 +99,10 @@ yuntang:
 
 logging:
     config: classpath:logback-spring.xml
-    file: D:/logback.log
-#    file: C:/logback.log
+#    file: D:/logback.log
+    file: C:/logback.log
 
-upload: D:/upload/
-#upload: C:/upload/
+#upload: D:/upload/
+#contract: D:/hetong/
+upload: C:/upload/
+contract: C:/hetong/
