@@ -62,8 +62,15 @@ public class SystemContractController extends AbstractController {
             if (key.matches("\\d{1,8}")) {
                 String s = CountUtil.int2AAA2(Integer.parseInt(key));
                 wrapper.eq("order_id", s);
-            }else{
-                wrapper.like("order_id", key);
+            } else {
+                wrapper.andNew()
+                        .like("order_id", key)
+                        .or()
+                        .like("agent_name", key)
+                        .or()
+                        .like("user_name", key)
+                        .or()
+                        .like("user_phone", key);
             }
         }
 
@@ -169,13 +176,20 @@ public class SystemContractController extends AbstractController {
 
         } else {
             //if ("0".equals(type))
+            exit.setAgentName(null);
+            exit.setUserName(null);
+            exit.setUserPhone(null);
+            exit.setSendId(null);
+            exit.setSendName(null);
+            exit.setAnnex1(null);
+            exit.setAnnex2(null);
             exit.setContractStatus("1");
         }
         exit.setContractMsg(systemContract.getContractMsg());
         exit.setAdminName(getUser().getUsername());
         exit.setGmtModified(new Date());
 
-        systemContractService.updateById(exit);
+        systemContractService.updateAllColumnById(exit);
 
         return ResultBean.ok();
 

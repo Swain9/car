@@ -31,8 +31,8 @@ var vm = new Vue({
                 alert("请填写正确的数字");
                 return true;
             }
-            if(parseInt(vm.end) - parseInt(vm.begin) > 100) {
-                alert("请填写100以内的范围");
+            if(parseInt(vm.end) - parseInt(vm.begin) > 1000) {
+                alert("请填写1000以内的范围");
                 return true;
             }
             if (!test.test(vm.begin)) {

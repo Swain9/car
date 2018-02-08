@@ -1,10 +1,38 @@
 $(function () {
+    function aaa2int(value) {
+        return AAA(value, value.length - 1);
+    }
+
+    function AAA(value, end) {
+        var chars = value.split("");
+        var n = chars[end].toUpperCase().charCodeAt(0) - 'A'.charCodeAt(0);
+        if (end === 0) {
+            return n;
+        }
+        return (AAA(value, end - 1) + 1) * 26 + n;
+    }
+
+    function getStr(value) {
+        return value.replace(/[^a-zA-Z]/ig, "");
+    }
+
+    function getInt(value) {
+        return parseInt(value.replace(/[^0-9]/ig, ""));
+    }
+
     $("#jqGrid").jqGrid({
         url: baseURL + 'system/contract/list',
         datatype: "json",
         colModel: [
             {label: '合同编号', name: 'id', index: "id", width: 45, key: true},
-            {label: '订单编号', name: 'orderId', width: 75},
+            {
+                label: '订单编号', name: 'orderId', width: 75, formatter: function (value, options, row) {
+                    var strValue = getStr(value);
+                    var intValue = getInt(value);
+                    var s = aaa2int(strValue) * 100 + intValue;
+                    return value + "(" + s + ")";
+                }
+            },
             {label: '联系人', name: 'userName', width: 75},
             {label: '手机号', name: 'userPhone', width: 75},
             {label: '所属区域', name: 'agentName', width: 100},
@@ -13,7 +41,7 @@ $(function () {
                 label: '合同状态', name: 'contractStatus', width: 80, formatter: function (value, options, row) {
                     switch (value) {
                         case '1':
-                            return '<span class="label label-danger">未提交</span>';
+                            return '<span class="label label-warning">未提交</span>';
                         case '2':
                             return '<span class="label label-danger">已提交</span>';
                         case '3':
@@ -132,7 +160,7 @@ var vm = new Vue({
             vm.showList = true;
             var page = $("#jqGrid").jqGrid('getGridParam', 'page');
             $("#jqGrid").jqGrid('setGridParam', {
-                postData: {'key': vm.q.key, 'contactStatus': vm.q.contactStatus},
+                postData: {'key': vm.q.key, 'contractStatus': vm.q.contractStatus},
                 page: page
             }).trigger("reloadGrid");
         },
