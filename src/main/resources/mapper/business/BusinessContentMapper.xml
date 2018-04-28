@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yuntangnet.duizhang.modules.business.mapper.BusinessContentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.yuntangnet.duizhang.modules.business.entity.BusinessContent">
+        <id column="id" property="id" />
+        <result column="content_theme" property="contentTheme" />
+        <result column="content_teacher" property="contentTeacher" />
+        <result column="content_money" property="contentMoney" />
+        <result column="content_details" property="contentDetails" />
+        <result column="content_paying_count" property="contentPayingCount" />
+        <result column="content_signin_count" property="contentSigninCount" />
+        <result column="content_total_money" property="contentTotalMoney" />
+        <result column="content_status" property="contentStatus" />
+        <result column="begin_time" property="beginTime" />
+        <result column="end_time" property="endTime" />
+        <result column="admin_name" property="adminName" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+    </resultMap>
+
+</mapper>

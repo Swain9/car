@@ -135,6 +135,23 @@ public class Constant {
         }
     }
 
+    public enum ContentStatus {
+        START("1"),
+        UNSTART("0"),
+        FINISH("2"),
+        CLOSE("3");
+
+        private String value;
+
+        ContentStatus(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
     /**
      * 数据状态
      */

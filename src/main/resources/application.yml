@@ -14,7 +14,7 @@ spring:
 #    url: jdbc:mysql://localhost:3306/duizhang?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: Yt917355+
-#    password: yt917355
+
     druid:
       initial-size: 10
       max-active: 100
@@ -100,9 +100,9 @@ yuntang:
 logging:
     config: classpath:logback-spring.xml
     file: D:/logback.log
-#    file: C:/logback.log
+#    file: /home/pro/logback.log
 
 upload: D:/upload/
 contract: D:/hetong/
-#upload: C:/upload/
-#contract: C:/hetong/
+#upload: /home/pro/upload/
+#contract: /home/pro/hetong/

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yuntangnet.duizhang.modules.business.mapper.BusinessOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.yuntangnet.duizhang.modules.business.entity.BusinessOrder">
+        <id column="id" property="id" />
+        <result column="user_wechat_id" property="userWechatId" />
+        <result column="content_id" property="contentId" />
+        <result column="user_name" property="userName" />
+        <result column="user_phone" property="userPhone" />
+        <result column="pay_money" property="payMoney" />
+        <result column="pay_datetime" property="payDatetime" />
+        <result column="pay_type" property="payType" />
+        <result column="is_pay" property="isPay" />
+        <result column="is_done" property="isDone" />
+        <result column="platform_id" property="platformId" />
+        <result column="platform_phone" property="platformPhone" />
+        <result column="platform_name" property="platformName" />
+        <result column="admin_name" property="adminName" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+    </resultMap>
+
+</mapper>

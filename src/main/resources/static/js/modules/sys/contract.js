@@ -144,12 +144,12 @@ var vm = new Vue({
                 if (isBlank(vm.contract.annex1)) {
                     vm.img1 = null;
                 } else {
-                    vm.img1 = baseURL + "system/contract/download/1/" + vm.contract.id;
+                    vm.img1 = baseURL + "system/contract/download/1/" + vm.contract.id + "?m=" + Math.random();
                 }
                 if (isBlank(vm.contract.annex2)) {
                     vm.img2 = null;
                 } else {
-                    vm.img2 = baseURL + "system/contract/download/2/" + vm.contract.id;
+                    vm.img2 = baseURL + "system/contract/download/2/" + vm.contract.id + "?m=" + Math.random();
                 }
             });
         },
