@@ -5,10 +5,13 @@ import cn.yuntangnet.duizhang.common.util.BootstrapPageBean;
 import cn.yuntangnet.duizhang.common.util.PageInfo;
 import cn.yuntangnet.duizhang.common.util.ResultBean;
 import cn.yuntangnet.duizhang.modules.business.entity.BusinessOrder;
+import cn.yuntangnet.duizhang.modules.business.service.GuangXiBusiness;
 import cn.yuntangnet.duizhang.modules.business.service.IBusinessOrderService;
 import cn.yuntangnet.duizhang.modules.system.controller.AbstractController;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.catt.ipnet.confsrv.common.bo.RestResponse;
+import com.catt.ipnet.confsrv.common.bo.gxcloudpool.GxCloudPoolResult;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +35,12 @@ import java.util.Map;
 public class BusinessOrderController extends AbstractController {
 
     private final IBusinessOrderService businessOrderService;
+    private final GuangXiBusiness guangXiBusiness;
 
     @Autowired
-    public BusinessOrderController(IBusinessOrderService businessOrderService) {
+    public BusinessOrderController(IBusinessOrderService businessOrderService, GuangXiBusiness guangXiBusiness) {
         this.businessOrderService = businessOrderService;
+        this.guangXiBusiness = guangXiBusiness;
     }
 
     @RequestMapping("/list")
@@ -64,6 +69,18 @@ public class BusinessOrderController extends AbstractController {
         BusinessOrder businessOrder = businessOrderService.selectById(id);
 
         return ResultBean.ok(businessOrder);
+    }
+
+    @RequestMapping("/pool/{type}")
+    @RequiresPermissions("business:order:pool")
+    public ResultBean pool(@PathVariable String type) {
+        RestResponse<GxCloudPoolResult> response = null;
+        if ("create".equals(type)) {
+            response = guangXiBusiness.createGuangXiCloudPoolZhuanXian();
+        } else if ("delete".equals(type)) {
+            response = guangXiBusiness.deleteGuangXiCloudPoolZhuanXian();
+        }
+        return ResultBean.ok(response);
     }
 }
 

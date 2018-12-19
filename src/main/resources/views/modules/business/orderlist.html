@@ -29,6 +29,8 @@
             </div>
             <a class="btn btn-default" @click="query">查询</a>
             <a v-if="hasPermission('business:order:info')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;查看</a>
+            <a v-if="hasPermission('business:order:pool')" class="btn btn-primary" @click="createPool"><i class="fa fa-plus"></i>&nbsp;创建</a>
+            <a v-if="hasPermission('business:order:pool')" class="btn btn-primary" @click="deletePool"><i class="fa fa-plus"></i>&nbsp;删除</a>
         </div>
         <table id="jqGrid"></table>
         <div id="jqGridPager"></div>

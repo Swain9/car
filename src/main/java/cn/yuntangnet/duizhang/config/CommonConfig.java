@@ -1,5 +1,7 @@
 package cn.yuntangnet.duizhang.config;
 
+import com.catt.ipnet.confsrv.client.IpnetRestFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
@@ -13,7 +15,7 @@ import java.util.Date;
  * @since 2018/2/26 15:08
  */
 @Configuration
-public class DateConfig {
+public class CommonConfig {
     @Bean
     public Converter<String, Date> convertStrToDate() {
         return new Converter<String, Date>() {
@@ -30,4 +32,12 @@ public class DateConfig {
             }
         };
     }
+
+    @Value("${serverUrl}")
+    private String serverUrl;
+    @Bean
+    public IpnetRestFactory initFactory(){
+        return IpnetRestFactory.getInstance(serverUrl);
+    }
+
 }

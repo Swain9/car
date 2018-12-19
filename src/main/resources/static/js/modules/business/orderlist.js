@@ -65,6 +65,16 @@ var vm = new Vue({
                 // contentStatus: 1
             };
         },
+        createPool: function(){
+            $.get(baseURL + "business/order/pool/create",function (r) {
+               console.log(r);
+            });
+        },
+        deletePool: function(){
+            $.get(baseURL + "business/order/pool/delete",function (r) {
+                console.log(r);
+            });
+        },
         getContent: function (contentId) {
             $.get(baseURL + "business/order/info/" + contentId, function (r) {
                 vm.order = r.data;

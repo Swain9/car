@@ -10,10 +10,11 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.1.87:3306/duizhang?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-#    url: jdbc:mysql://localhost:3306/duizhang?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+#    url: jdbc:mysql://192.168.1.87:3306/duizhang?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    #url: jdbc:mysql://localhost:3306/duizhang?useSSL=false&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/duizhang?useSSL=false&amp;allowPublicKeyRetrieval=true
     username: root
-    password: Yt917355+
+    password: Kt917355+
 
     druid:
       initial-size: 10
@@ -99,10 +100,12 @@ yuntang:
 
 logging:
     config: classpath:logback-spring.xml
-    file: D:/logback.log
+    file: E:/gongdan/logback.log
 #    file: /home/pro/logback.log
 
-upload: D:/upload/
-contract: D:/hetong/
+upload: E:/gongdan/upload/
+contract: E:/gongdan/hetong/
+
+serverUrl: http://localhost:8080/ipnet-confsrv
 #upload: /home/pro/upload/
 #contract: /home/pro/hetong/

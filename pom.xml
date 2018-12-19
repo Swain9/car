@@ -95,6 +95,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.47</version>
         </dependency>
         <!--验证码-->
         <dependency>
@@ -144,6 +145,11 @@
                     <groupId>org.apache.commons</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.catt.ipnet</groupId>
+            <artifactId>ipnet-confsrv-client</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <!--远程关机-->
         <!--<dependency>
