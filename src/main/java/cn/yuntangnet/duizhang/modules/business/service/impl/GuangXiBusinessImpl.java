@@ -295,7 +295,7 @@ public class GuangXiBusinessImpl implements GuangXiBusiness {
         gxCloudPoolCoreRouterBizInfo.setVpnInstanceParam(vpnInstanceParam);
 
         //目前写死0.0.0.0
-        gxCloudPoolCoreRouterBizInfo.setToIndustryApplicationIp("0.0.0.0");
+        //gxCloudPoolCoreRouterBizInfo.setto("0.0.0.0");
 
         //到专线接入交换机的聚合口
         CloudPoolAggregationInterface toZhuanXianAggInter = new CloudPoolAggregationInterface();
